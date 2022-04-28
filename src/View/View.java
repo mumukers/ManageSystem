@@ -70,10 +70,8 @@ public class View {
         Server.writeOnExcel(filename);
     }
     private void TxtWrite(){
-        sc=new Scanner(System.in);
-        System.out.print("请输入写入的文件名（不要后缀名）：");//单纯名称不要求输入后缀名
-        String filename = sc.nextLine()+".txt";
-        Server.writeOnTxt(filename);
+        Server.writeOnTxt();
+        System.out.println("======成功写入"+Server.getStuNum()+"个学生======");
     }
     private void Keyboard(){
         System.out.print("输入学生id:");

@@ -143,11 +143,11 @@ public class Server {
         }
         System.out.println("======成功导入"+count+"个学生======");
     }
-    public static void writeOnTxt(String filename){
+    public static void writeOnTxt(){
         BufferedWriter bw=null;
         try{
             //这里要填你src/data目录的地址
-            File file=new File("E:\\Idea_Project\\ManageSystem\\src\\data\\",filename);
+            File file=new File("E:\\Idea_Project\\ManageSystem\\src\\data\\Student_Info_Txt.txt");
             for (int i = 0; i < list.size(); i++) {
                 Student stu = list.get(i);
                 bw=new BufferedWriter(new FileWriter(file,true));
@@ -230,21 +230,21 @@ public class Server {
             list.add(stu);
             return true;
         }
+        System.out.println("======学生已存在======");
         return false;
     }
     public static boolean notExist(Student stu){//判断是否已经存在于list中
-        boolean flag=false;//false为已经存在，true为不存在
         if(stu==null){
-            return flag;
+            System.out.println("======添加为空======");
+            return false;
         }
         for (Student student :
                 list) {
-            if(stu.equals(student)){//这里的equals调用的是student中自己定义的equals方法，如果不满意自己定义一个也行
-                flag=true;
-                break;
+            if(stu.getId().equals(student.getId())&&stu.getCourse().equals(student.getCourse())){//这里的equals调用的是student中自己定义的equals方法，如果不满意自己定义一个也行
+                return false;
             }
         }
-        return flag;
+        return true;
     }
     public  static String getUsername(){
         InputStream ras = new Server().getClass().getClassLoader().getResourceAsStream("data/user.properties");
@@ -261,6 +261,9 @@ public class Server {
             }
         }
         return prop.getProperty("username", "null");
+    }
+    public static int getStuNum(){
+        return list.size();
     }
 
 }
